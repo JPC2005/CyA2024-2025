@@ -16,7 +16,7 @@
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
   24/09/2024 - Inclusion de un contador para saber si el proceso se cumplio
-               para cada cadena
+               para cada cadena, apartado de modificaciones
 */
 
 #include "cadenas_tools.h"
@@ -62,7 +62,7 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
     std::vector<char> AlphabetChars(AlphabetLine.begin(), AlphabetLine.end());
     Alphabet alphabet(AlphabetChars);
     Chain chain(ChainLine);
-    Language language(alphabet);
+    Language language(alphabet, chain);
     switch(opcode) {
       case 1:
         alphabet.PrintAlphabet(output);
@@ -89,6 +89,14 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
         std::cout << "Printed all of the possible suffixes of chain " << tally
         << " in " << output_file << std::endl;
         break;
+// possible modifications
+        /*
+      case 6:
+        language.Palindrome(output);
+        std::cout << "Printed the results of line " << tally << " in " 
+        << output_file << std::endl;
+        break;
+        */
       default:
         std::cerr << "ERROR: invalid operation code, use a valid code (1-5)\n";
         return;

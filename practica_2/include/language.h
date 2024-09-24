@@ -13,6 +13,7 @@
 
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
+  24/09/2024 - Apartado de modificaciones
 */
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
@@ -22,9 +23,18 @@
 
 class Language {
   public:
-    Alphabet alpahbet_;
 
-  Language(const Alphabet& alpahbet);
+    Language(const Alphabet& alpahbet, const Chain& chain);
+
+    Alphabet& get_alphabet() { return alphabet_;}
+    Chain& get_chains() { return chain_;}
+
+// posible modification
+//    void Palindrome(std::ofstream& output);
+    
+  private:  
+    Alphabet alphabet_;
+    Chain chain_;
 };
 
 #endif
