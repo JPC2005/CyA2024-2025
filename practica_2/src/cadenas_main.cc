@@ -41,11 +41,11 @@ bool CorrectUsage(const int argc, char* argv[], const int kcorrect_numb) {
 }
 
 int main(const int argc, char *argv[]){
-	PrintPurpose();
   if (argc == 1 || std::string(argv[1]) == "--help") {
     PrintHelp(argv);
     return 0;
   }
+	PrintPurpose();
 	
   if (!CorrectUsage(argc, argv, 4)) {
 		return 345;

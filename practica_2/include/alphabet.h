@@ -26,12 +26,15 @@
 
 class Alphabet {
   public:
-    std::set<Symbol> symbols;
 
-    Alphabet(const std::vector<char>& SymbolList);
+    Alphabet(const std::vector<Symbol>& SymbolList);
+    const std::set<Symbol>& get_symbols() const { return symbols_;}
 
     void PrintAlphabet(std::ofstream& output);
     void PrintInverse(std::ofstream& output);
+
+  private:
+    std::set<Symbol> symbols_;
 };
 
 #endif

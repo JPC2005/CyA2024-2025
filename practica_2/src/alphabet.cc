@@ -16,13 +16,14 @@
 
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
+  24/09/2024 - Arreglar problema de una ',' extra en PrintAlphabet
 */
 
 #include "alphabet.h"
 
-Alphabet::Alphabet(const std::vector<char>& SymbolList) {
-  for (char sym : SymbolList) {
-    symbols.insert(Symbol(sym));
+Alphabet::Alphabet(const std::vector<Symbol>& SymbolList) {
+  for (Symbol sym : SymbolList) {
+    symbols_.insert(Symbol(sym));
   }
 }
 
@@ -30,9 +31,13 @@ Alphabet::Alphabet(const std::vector<char>& SymbolList) {
   @Brief: Gets the alphabet (the second chain) and prints it in the output file
 */
 void Alphabet::PrintAlphabet(std::ofstream& output) {
+  int tally{0};
   output << "{";
-  for (const Symbol& sym : symbols) {
-    output << sym.get_value() << ", ";
+  for (const Symbol& sym : get_symbols()) {
+    output << sym.get_value();
+    if (tally < get_symbols().size() - 1)
+     output << ", ";
+    tally += 1;
   }
   output << "}\n";
 }

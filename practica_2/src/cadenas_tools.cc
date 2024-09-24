@@ -30,9 +30,9 @@
 */
 void PrintHelp(char* argv[]) {
   std::cout << argv[0] << " Needs you to input the name of a .txt file that "
-                       <<  "will work as the input file, a second .txt file "
+                       <<  "will work as the input file,\na second .txt file "
                        <<  "that will work as the output file and lastly a "
-                       << "number that will work as the code for what operation"
+                       << "number that will work\nas the code for what operation"
                        <<  " to do.\n";
   std::cout << std::endl;
   std::cout << "The codes are:\n" << "1. Alphabet: prints the alphabet associated"
@@ -59,40 +59,40 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
     return;
   }
   while (input >> ChainLine >> AlphabetLine) {
-    std::vector<char> AlphabetChars(AlphabetLine.begin(), AlphabetLine.end());
-    Alphabet alphabet(AlphabetChars);
-    Chain chain(ChainLine);
-    Language language(alphabet, chain);
+    std::vector<Symbol> AlphabetChars(AlphabetLine.begin(), AlphabetLine.end());
+    Alphabet Alphabet(AlphabetChars);
+    Chain Chain(ChainLine);
+    Language Language(Alphabet, Chain);
     switch(opcode) {
       case 1:
-        alphabet.PrintAlphabet(output);
+        Alphabet.PrintAlphabet(output);
         std::cout << "Printed the alphabet of line " << tally << " in " 
          << output_file << std::endl;
         break;
       case 2:
-        chain.Length(output);
+        Chain.Length(output);
         std::cout << "Printed the length of chain " << tally << " in " 
         << output_file << std::endl;
         break;
       case 3:
-        chain.PrintInverse(output);
+        Chain.PrintInverse(output);
         std::cout << "Printed the inverse of chain " << tally << " in " 
         << output_file << std::endl;
         break;
       case 4:
-        chain.Prefix(output);
+        Chain.Prefix(output);
         std::cout << "Printed all of the possible prefixes of chain " << tally
         << " in " << output_file << std::endl;
         break;
       case 5:
-        chain.Suffix(output);
+        Chain.Suffix(output);
         std::cout << "Printed all of the possible suffixes of chain " << tally
         << " in " << output_file << std::endl;
         break;
 // possible modifications
         /*
       case 6:
-        language.Palindrome(output);
+        Language.Palindrome(output);
         std::cout << "Printed the results of line " << tally << " in " 
         << output_file << std::endl;
         break;
