@@ -48,12 +48,12 @@ void Chain::PrintInverse(std::ofstream& output) const {
   the size of the chain
 */
 void Chain::Prefix(std::ofstream& output) const {
-    output << "{&, ";  
+    output << "{&";  
     for (size_t i{1}; i <= get_size(); ++i) {
+      output << ", ";
       for (size_t j{0}; j < i; ++j) {
         output << get_chain()[j].get_value();
       }
-      output << ", ";
     }
   output << "}\n";
 }
@@ -63,12 +63,12 @@ void Chain::Prefix(std::ofstream& output) const {
   the last element of the chain and reducing by 1 every iteration
 */
 void Chain::Suffix(std::ofstream& output) const {
-    output << "{&, ";  
+    output << "{&";  
     for (size_t i{get_size()}; 0 < i; --i) {
+      output << ", ";
       for (size_t j{i - 1}; j < get_size(); ++j) {
         output << get_chain()[j].get_value();
       }
-      output << ", ";
     }
   output << "}\n";
 }

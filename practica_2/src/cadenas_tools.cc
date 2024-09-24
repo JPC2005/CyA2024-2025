@@ -15,6 +15,8 @@
 
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
+  24/09/2024 - Inclusion de un contador para saber si el proceso se cumplio
+               para cada cadena
 */
 
 #include "cadenas_tools.h"
@@ -51,6 +53,7 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
   std::ifstream input(input_file);
   std::ofstream output(output_file);
   std::string ChainLine, AlphabetLine;
+  int tally{1};
   if (!input.is_open()) {
     std::cerr << "ERROR: input file couldn't open\n";
     return;
@@ -63,32 +66,34 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
     switch(opcode) {
       case 1:
         alphabet.PrintAlphabet(output);
-        std::cout << "Printed the alphabets in " << output_file << std::endl;
+        std::cout << "Printed the alphabet of line " << tally << " in " 
+         << output_file << std::endl;
         break;
       case 2:
         chain.Length(output);
-        std::cout << "Printed the length of the chains in " << output_file 
-        << std::endl;
+        std::cout << "Printed the length of chain " << tally << " in " 
+        << output_file << std::endl;
         break;
       case 3:
         chain.PrintInverse(output);
-        std::cout << "Printed the inverse of the chains in " << output_file 
-        << std::endl;
+        std::cout << "Printed the inverse of chain " << tally << " in " 
+        << output_file << std::endl;
         break;
       case 4:
         chain.Prefix(output);
-        std::cout << "Printed all of the possible prefixes in " << output_file 
-        << std::endl;
+        std::cout << "Printed all of the possible prefixes of chain " << tally
+        << " in " << output_file << std::endl;
         break;
       case 5:
         chain.Suffix(output);
-        std::cout << "Printed all of the possible suffixes in " << output_file 
-        << std::endl;
+        std::cout << "Printed all of the possible suffixes of chain " << tally
+        << " in " << output_file << std::endl;
         break;
       default:
         std::cerr << "ERROR: invalid operation code, use a valid code (1-5)\n";
         return;
     }
+      tally += 1;
   }
   input.close();
   output.close();
