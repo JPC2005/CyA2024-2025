@@ -16,7 +16,8 @@
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
   24/09/2024 - Inclusion de un contador para saber si el proceso se cumplio
-               para cada cadena, apartado de modificaciones
+               para cada cadena
+  25/09/2024 - Modificacion en clase
 */
 
 #include "cadenas_tools.h"
@@ -40,7 +41,9 @@ void PrintHelp(char* argv[]) {
   << " file the length of each chain\n" << "3: Inverse: prints in the output"
   << " file the inverse of the chain (the reverse)\n" << "4: Prefix: prints"
   << " in the output file all of the prefix chains for each chain\n"
-  << "5: Sufix: in the output file all of the sufix chains for each chain\n"
+  << "5: Suffix: in the output file all of the sufix chains for each chain\n"
+  << "6: Suffixes and Prefixes of a length: you will be asked for a length"
+  << " and it will print in the output file the prefix and suffix of that length\n"
   << std::endl;
 }
 
@@ -53,7 +56,11 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
   std::ifstream input(input_file);
   std::ofstream output(output_file);
   std::string ChainLine, AlphabetLine;
-  int tally{1};
+  int length{0}, tally{1};
+  if (opcode == 6) {
+  std::cout << "Please input the length of the chain you want: ";
+  std::cin >> length;
+  }
   if (!input.is_open()) {
     std::cerr << "ERROR: input file couldn't open\n";
     return;
@@ -89,16 +96,14 @@ void SelectOperation(std::string& input_file, std::string& output_file, int opco
         std::cout << "Printed all of the possible suffixes of chain " << tally
         << " in " << output_file << std::endl;
         break;
-// possible modifications
-        /*
+      // Modificacion
       case 6:
-        Language.Palindrome(output);
-        std::cout << "Printed the results of line " << tally << " in " 
-        << output_file << std::endl;
+        Chain.NumberLength(output, length);
+        std::cout << "Printed the number of chains of length " << length 
+        << " in chain " << tally << "\n";
         break;
-        */
       default:
-        std::cerr << "ERROR: invalid operation code, use a valid code (1-5)\n";
+        std::cerr << "ERROR: invalid operation code, use a valid code (1-6)\n";
         return;
     }
       tally += 1;

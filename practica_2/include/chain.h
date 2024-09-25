@@ -13,6 +13,7 @@
 
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
+  25/09/2024 - Modificacion en clase
 */
 #ifndef CHAIN_H
 #define CHAIN_H
@@ -33,6 +34,9 @@ class Chain {
     void Prefix(std::ofstream& output) const;
     void Suffix(std::ofstream& output) const;
     void PrintInverse(std::ofstream& output) const;
+
+    // Modificacion
+    void NumberLength(std::ofstream& output, int length) const;
 
   private:
     std::vector<Symbol> chain_;

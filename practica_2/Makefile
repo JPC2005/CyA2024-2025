@@ -10,7 +10,7 @@ SRC_FILES = $(wildcard $(SRC_DIR)/*.cc)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRC_FILES))
 TEST_OBJ_FILES = $(patsubst $(TEST_DIR)/%.cc,$(OBJ_DIR)/test_%.o,$(TEST_FILES))
 
-TARGET = practica_2
+TARGET = lenguage_y_cadenas
 
 all: $(TARGET)
 

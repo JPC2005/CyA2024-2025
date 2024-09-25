@@ -16,6 +16,7 @@
 	
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
+  25/09/2024 - Modificacion en clase
 */
 #include "chain.h"
 
@@ -71,4 +72,30 @@ void Chain::Suffix(std::ofstream& output) const {
       }
     }
   output << "}\n";
+}
+
+/*
+  @Brief : Takes a length given by the user and prints in the output file
+  the suffix and prefix of the chain
+*/
+
+void Chain::NumberLength(std::ofstream& output, int length) const {
+  if (get_size() < length)
+    output << '&';
+  for (size_t i{1}; i <= get_size(); ++i) {
+    for (size_t j{0}; j < i; ++j) {
+      if (i == length)
+        output << get_chain()[j].get_value();
+    }
+  }
+  output << ' ';
+  if (get_size() < length)
+    output << '&';
+  for (size_t i{get_size()}; 0 < i; --i) {
+    for (size_t j{i - 1}; j < get_size(); ++j) {
+      if (get_size() - i + 1 == length) 
+        output << get_chain()[j].get_value();
+    }
+  }
+    output << std::endl;
 }

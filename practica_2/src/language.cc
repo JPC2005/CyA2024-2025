@@ -13,28 +13,9 @@
 
   Historial de revisiones
   22/09/2024 - Creacion (primera version) del codigo
-  24/09/2024 - Apartado de modificaciones
 */
 
 #include "language.h"
 
 Language::Language(const Alphabet& alphabet, const Chain& chain) : alphabet_(alphabet)
 , chain_(chain) {}
-
-// possible modifications
-/*
-void Language::Palindrome(std::ofstream& output) {
-  bool palindrome{true};
-  for (size_t i{0}; i < get_chains().get_size(); i++) {
-    if (get_chains().get_chain()[i].get_value() 
-    != get_chains().get_chain()[get_chains().get_size() - i - 1].get_value()) {
-      palindrome = false;
-    }
-  }
-  if (palindrome) {
-    output << "true" << std::endl;
-  } else {
-    output << "false" << std::endl;
-  }
-}
-*/
