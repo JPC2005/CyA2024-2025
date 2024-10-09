@@ -15,9 +15,10 @@
   	    Enlaces de interes
 
   Historial de revisiones
-  5/10/2024 - Creacion (primera version) del codigo
+  05/10/2024 - Creacion (primera version) del codigo
   06/10/2024 - Funciones de variables y loops añadido
   07/10/2024 - Contador de lineas añadido
+  09/10/2024 - Modificacion
 */
 #include <iostream>
 
@@ -54,10 +55,12 @@ std::vector<std::string> CodeAnalyzer::SplitByLines(const std::string& content) 
 
 /*
   @brief: grabs the first comments and titles it as the descpription of the file
+  @problems: only grabs the first one, if its multiple single line comments it  
+             doesn't grab all of them
 */
 
 std::string CodeAnalyzer::ExtractDescription() {
-  std::regex comment_pattern = Patterns().GetCommentPattern();
+  std::regex comment_pattern = Patterns().GetDescriptionPattern();
   std::smatch match;
 
   if (std::regex_search(Content(), match, comment_pattern)) {
@@ -83,6 +86,7 @@ std::string CodeAnalyzer::ExtractDescription() {
           (\s\/\/.*|\/\*[\s\S]*?\*\/) which captures single line 
           and multi line comments, if one is found it adds it to the
           vector in a pair with its line number
+  @problem: can't find multi-line comments
 */
 
 std::vector<std::pair<int, std::string>> CodeAnalyzer::ExtractComments() {
@@ -98,7 +102,8 @@ std::vector<std::pair<int, std::string>> CodeAnalyzer::ExtractComments() {
     if (inside_multiline_comment) {
       // We are inside a multi-line comment, accumulate lines until we find the end
       current_multiline_comment += lines[i] + "\n";
-      if (lines[i].find("*/") != std::string::npos) {
+      
+      if (lines[i].find("*/") == std::string::npos) {
         // End of multi-line comment found
         comments.push_back({multiline_start_line, current_multiline_comment});
         inside_multiline_comment = false;
@@ -107,22 +112,24 @@ std::vector<std::pair<int, std::string>> CodeAnalyzer::ExtractComments() {
     } else if (std::regex_search(lines[i], match, comment_pattern)) {
         std::string current_comment = match[0];
 
-        if (current_comment.find("/*") != std::string::npos && current_comment.find("*/") == std::string::npos) {
-        // Start of a multi-line comment, set flag and start accumulating
-        inside_multiline_comment = true;
-        multiline_start_line = i + 1;
-        current_multiline_comment = current_comment + "\n";
+        if (current_comment.find("/*") != std::string::npos && current_comment.find("*/") != std::string::npos) {
+              // Start of a multi-line comment, set flag and start accumulating
+              inside_multiline_comment = true;
+              multiline_start_line = i + 1;
+              current_multiline_comment = current_comment + "\n";
         } else {
+          // Single line comments
           comments.push_back({i + 1, current_comment});
         }
       }
-  }
+    } 
 
   return comments;
-  }
+}
+
 /*
   @brief: searches line by line to see if it can find the pattern
-          (\b(int|char|double|float|string)\s+([a-zA-Z_]\w*)\s*(\[\w*\])*(=|(\{\s*[^;]+\}))?\s*;)
+          (\b(int|double)\s+(\w*)\s*(=\s*[^;]+|(\{\s*[^;]+\}))?\s*;)
           which captures most basic type of variables and string and if it finds
           one it adds it to the vector in a pair with its line number
 */
@@ -135,8 +142,13 @@ std::vector<std::pair<int, std::string>> CodeAnalyzer::ExtractVariables() {
   for (int i = 0; i < lines.size(); ++i) {
     std::smatch match;
     if (std::regex_search(lines[i], match, variables_pattern)) {
+      bool is_const = lines[i].find("const") != std::string::npos;
       // stores the line number and the variables
-      variables.push_back({i + 1, match[0]});
+      if (is_const) {
+        variables.push_back({i + 1, "CONST: " + match[0].str()});        
+      } else {
+        variables.push_back({i + 1, match[0]});
+      }
     }
   }
   return variables;
@@ -202,20 +214,3 @@ void CodeAnalyzer::WriteAnalysis(const std::string& output_file) {
     std::cerr <<"ERROR: " << output_file << " couldn't open\n";
   }
 }
-/*
-std::vector<std::string> CodeAnalyzer::ExtractFunctions() {
-  std::vector<std::string> function;
-  std::regex function_pattern = Patterns().GetFunctionPattern();
-  std::smatch match;
-  std::string::const_iterator search_start(Content().cbegin());
-
-  while (std::regex_search(search_start, Content().cend(), match, 
-  function_pattern)) {
-    function.push_back("Function: " + match[0].str() + " (" + match[2].str() + ")");
-    search_start = match.suffix().first;
-  }
-
-  return function;
-}
-*/
-

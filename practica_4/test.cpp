@@ -1,5 +1,5 @@
 
-/**
+/*
  * Universidad de La Laguna
  * Escuela Superior de Ingeniería y Tecnología
  * Grado en Ingeniería Informática
@@ -19,9 +19,13 @@ class Image {
   Image(const std::string& file_name);
   void Draw();      /// Function Member
  private:
-  int rows_{0};    /// Data members
+  const int rows_ = 0;    /// Data members
   int cols_{0};
 };
+
+/*
+test 
+*/
 
 int main () {
   const std::string kHello{"Hello!"};

@@ -18,6 +18,7 @@
   5/10/2024 - Creacion (primera version) del codigo
   06/10/2024 - Funciones de variables y loops añadido
   07/10/2024 - Contador de lineas añadido
+  09/10/2024 - Modificacion
 */
 #ifndef CODE_ANALYZER_H
 #define CODE_ANALYZER_H
@@ -47,10 +48,6 @@ class CodeAnalyzer {
     bool CheckForMain();
 
     void WriteAnalysis(const std::string& output_file);
-    /*
-    std::vector<std::string> ExtractFunctions();
-    void test();
-    */
   private:
   std::string file_path_;
   std::string content_;

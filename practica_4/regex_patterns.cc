@@ -15,25 +15,25 @@
 
   Historial de revisiones
   05/10/2024 - Creacion (primera version) del codigo
+  09/10/2024 - Modificacion
 */
 
 #include <iostream>
 
 #include "regex_patterns.h"
 
-std::regex RegexPatterns::GetCommentPattern() const {
-  return std::regex(R"(\s\/\/.*|\/\*[\s\S]*?\*\/)");
+std::regex RegexPatterns::GetDescriptionPattern() const {
+  return std::regex(R"(\s\/\/.*|(\/\*[\s\S]*?\*\S*\/))");
 }
+
+std::regex RegexPatterns::GetCommentPattern() const {
+  return std::regex(R"(\s\/\/.*|(\/\*[\s\S]*?(\*\S*\/)*))");
+}
+
 std::regex RegexPatterns::GetVariablePattern() const {
-  return std::regex(R"(\b(int|char|double|float|string)\s+([a-zA-Z_]\w*)\s*(\[\w*\])*(=|(\{\s*[^;]+\}))?\s*;)");
+  return std::regex(R"(\b(int|double)\s+(\w*)\s*(=\s*[^;]+|(\{\s*[^;]+\}))?\s*;)");
 }
 
 std::regex RegexPatterns::GetLoopsPattern() const {
-  return std::regex(R"(\b(for|while)\b\s*\(.*?\))");
+  return std::regex(R"(\b(for|while)\s*\(.*?\))");
 }
-
-/*
-std::regex RegexPatterns::GetFunctionPattern() const {
-  return std::regex(R"(\b\w+\s+\w+\(.*\)\s*\{)");
-}
-*/

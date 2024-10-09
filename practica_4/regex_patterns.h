@@ -16,6 +16,7 @@
 
   Historial de revisiones
   05/10/2024 - Creacion (primera version) del codigo
+  09/10/2024 - Modificacion
 */
 #ifndef REGEX_PATTERNS_H
 #define REGEX_PATTERNS_H
@@ -26,6 +27,7 @@ class RegexPatterns {
 
   public:
 
+    std::regex GetDescriptionPattern() const;
     std::regex GetCommentPattern() const;
     std::regex GetVariablePattern() const;
     std::regex GetLoopsPattern() const;

@@ -16,6 +16,7 @@
 
   Historial de revisiones
   05/10/2024 - Creacion (primera version) del codigo
+  09/10/2024 - Modificacion
 */
 #include <iostream>
 
