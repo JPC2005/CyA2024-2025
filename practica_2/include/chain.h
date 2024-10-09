@@ -30,7 +30,7 @@ class Chain {
     const std::vector<Symbol>& get_chain() const { return chain_;}
     size_t get_size() const {return chain_.size();}
     
-    void Length(std::ofstream& output) const;
+    size_t Length(std::ofstream& output) const;
     void Prefix(std::ofstream& output) const;
     void Suffix(std::ofstream& output) const;
     void PrintInverse(std::ofstream& output) const;
