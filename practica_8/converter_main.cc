@@ -24,17 +24,29 @@ void showHelp() {
     std::cout << "Transforms the CFG written in a .gra file to its Chomsky Normal Form and writes it in another .gra file \n";
     std::cout << "Options:\n";
     std::cout << "  --help   Show this help message.\n";
+    std::cout << "Format:\n";
+    std::cout << "number of terminals\n terminals (must be lowercase letters)\n"
+    << "number of non-terminals\n terminals (must be uppercase letters)\n"
+    << "number of productions\n productions (each production has to be its own"
+    << "line)\n";
+}
+bool CorrectUsage(const int argc, char* argv[], const int kcorrect_numb) {
+        if (argc != kcorrect_numb) {
+                std::cout << "There has been an error with the number of parameters\n";
+                std::cout << "'use " << argv[0] << " --help' for more information\n";
+    std::cout << std::endl;
+                return false;
+        }
+        return true;
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 3) {
-        if (argc == 2 && std::string(argv[1]) == "--help") {
-            showHelp();
-        } else {
-            std::cerr << "Usage: ./Grammar2CNF input.gra output.gra\n";
-            std::cout << "Use " << argv[0] << " --help to learn more\n";
-        }
-        return 1;
+    if (argc == 2 && std::string(argv[1]) == "--help") {
+      showHelp();
+      return 0;
+    }
+    if (!CorrectUsage(argc, argv, 3)) {
+      return 345;
     }
 
     std::string inputFile = argv[1];

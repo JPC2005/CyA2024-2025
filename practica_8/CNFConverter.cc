@@ -138,10 +138,10 @@ void CNFConverter::ConvertToCNF(Grammar& grammar) {
           if (grammar.terminals.count(symbol)) {
             // Creates a new symbol for the terminal
             if (terminalMap.find(symbol) == terminalMap.end()) {
-              std::string newNonTerminal = "C(" + symbol + ")";
-              terminalMap[symbol] = newNonTerminal;
-              grammar.non_terminals.insert(newNonTerminal);
-              new_productions.push_back({newNonTerminal, {symbol}});
+              std::string new_non_terminal = "C(" + symbol + ")";
+              terminalMap[symbol] = new_non_terminal;
+              grammar.non_terminals.insert(new_non_terminal);
+              new_productions.push_back({new_non_terminal, {symbol}});
             }
             newRHS.push_back(terminalMap[symbol]);
             } else {
@@ -161,10 +161,10 @@ void CNFConverter::ConvertToCNF(Grammar& grammar) {
       if (productions.rhs.size() > 2) {
         std::string currentLHS = productions.lhs;
         for (size_t i = 0; i < productions.rhs.size() - 2; ++i) {
-          std::string newNonTerminal = "D" + std::to_string(non_terminal_counter++);
-          grammar.non_terminals.insert(newNonTerminal);
-          new_productions.push_back({currentLHS, {productions.rhs[i], newNonTerminal}});
-          currentLHS = newNonTerminal;
+          std::string new_non_terminal = "D" + std::to_string(non_terminal_counter++);
+          grammar.non_terminals.insert(new_non_terminal);
+          new_productions.push_back({currentLHS, {productions.rhs[i], new_non_terminal}});
+          currentLHS = new_non_terminal;
         }
         new_productions.push_back({currentLHS, {productions.rhs[productions.rhs.size() - 2], productions.rhs[productions.rhs.size() - 1]}});
         } else {

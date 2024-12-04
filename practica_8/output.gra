@@ -1,34 +1,37 @@
-3
-c
+2
 b
 a
-9
+7
 D2
 D1
 C(b)
-D3
 C(a)
-Y
-D4
-X
+B
+A
 S
-19
-S C(a)D1
-S C(a)D3
-S C(a)D4
-S C(a)C(b)
+16
+S C(a)A
+S a
+S BC(b)
+S b
 C(a) a
 C(b) b
-D1 XD2
-D2 C(b)X
-D3 C(b)X
-D4 XC(b)
-X C(a)Y
-X C(b)Y
-X a
-X b
-Y C(a)Y
-Y C(b)Y
-Y a
-Y b
-Y c
+A C(a)A
+A a
+A C(a)D1
+D1 AC(b)
+A C(a)C(b)
+B BC(b)
+B b
+B C(a)D2
+D2 BC(b)
+B C(a)C(b)
+
+
+Non-terminals that generates chains of terminals
+S a
+S b
+C(a) a
+C(b) b
+A a
+B b

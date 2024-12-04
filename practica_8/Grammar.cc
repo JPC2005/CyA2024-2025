@@ -113,6 +113,7 @@ bool Grammar::writeToFile(const std::string& filename) const {
     std::ofstream outfile(filename);
     std::vector<Production> starting_productions;
     std::vector<Production> rest_productions;
+    std::vector<Production> non_terminal_chain_production;
     if (!outfile.is_open()) {
         std::cerr << "Error: Could not write to file " << filename << std::endl;
         return false;
@@ -142,15 +143,43 @@ bool Grammar::writeToFile(const std::string& filename) const {
 
     // Prints the starting symbol's productions first
     for (const auto& prod : starting_productions) {
+      bool is_chain = true;
       outfile << prod.lhs << " ";
       for (const auto& sym : prod.rhs) {
+        // Checks if the production only has terminals
+        if (non_terminals.count(sym) > 0) {
+          is_chain = false;
+        }
         outfile << sym;
+      }
+      if (is_chain) {
+        non_terminal_chain_production.push_back(prod);
       }
       outfile << "\n";
     }
 
     // Prints the rest of the productions
     for (const auto& prod: rest_productions) {
+      bool is_chain = true;
+      outfile << prod.lhs << " ";
+      for (const auto& sym : prod.rhs) {
+        // Checks if the production only has terminals
+        if (non_terminals.count(sym) > 0) {
+          is_chain = false;
+        }
+        outfile << sym;
+      }
+      if (is_chain) {
+        non_terminal_chain_production.push_back(prod);
+      }
+      outfile << "\n";
+    }
+
+    // Prints in a list below the productions all of the non-terminals that 
+    // only have terminals
+    outfile << "\n\n";
+    outfile << "Non-terminals that generates chains of terminals\n";
+    for (const auto& prod : non_terminal_chain_production) {
       outfile << prod.lhs << " ";
       for (const auto& sym : prod.rhs) {
         outfile << sym;
